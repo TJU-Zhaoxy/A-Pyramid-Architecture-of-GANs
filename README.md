@@ -7,8 +7,10 @@ I am very interested in this paper. I have two partners who named Tian-xy and Ba
 
 # Requirements
 pytorch 0.4.0
+
 CACD MORPH dataset
 
 # Usage
 git clone or download zip file of this repository
+
 execute main.py in command
