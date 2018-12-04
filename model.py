@@ -87,86 +87,6 @@ class Generator(nn.Module):
         return out
 
 
-# class VGG16(nn.Module):
-#     def __init__(self):
-#         super(VGG16, self).__init__()
-#         features = models.vgg16(pretrained=True)
-#         self.to_relu_1 = nn.Sequential()
-#         self.to_relu_2 = nn.Sequential()
-#         self.to_relu_3 = nn.Sequential()
-#         self.to_relu_4 = nn.Sequential()
-#
-#         for x in range(3):
-#             self.to_relu_1.add_module(str(x), features[x])
-#         for x in range(3, 6):
-#             self.to_relu_2.add_module(str(x), features[x])
-#         for x in range(6, 10):
-#             self.to_relu_3.add_module(str(x), features[x])
-#         for x in range(10, 14):
-#             self.to_relu_4.add_module(str(x), features[x])
-#
-#         for parameters in self.parameters():
-#             parameters.requires_grad = False
-#
-#     def forward(self, x):
-#         h = self.to_relu_1(x)
-#         path4 = h
-#         h = self.to_relu_2(h)
-#         path3 = h
-#         h = self.to_relu_3(h)
-#         path2 = h
-#         h = self.to_relu_4(h)
-#         path1 = h
-#         out = [path1, path2, path3, path4]
-#
-#         return out
-#
-#     def path4(self, x):
-#         h = self.to_relu_1(x)
-#         path4 = h
-#
-#         return path4
-#
-#     def path3(self, x):
-#         h = self.to_relu_1(x)
-#         h = self.to_relu_2(h)
-#         path3 = h
-#
-#         return path3
-#
-#     def path2(self, x):
-#         h = self.to_relu_1(x)
-#         h = self.to_relu_2(h)
-#         h = self.to_relu_3(h)
-#         path2 = h
-#
-#         return path2
-#
-#     def path1(self, x):
-#         h = self.to_relu_1(x)
-#         h = self.to_relu_2(h)
-#         h = self.to_relu_3(h)
-#         h = self.to_relu_4(h)
-#         path1 = h
-#
-#         return path1
-
-
-# class VGG16_path4(nn.Module):
-#     def __init__(self):
-#         super(VGG16_path4, self).__init__()
-#         self.conv = nn.Sequential(
-#             nn.Conv2d(3, 64, 3, 1, 1),
-#             nn.ReLU(inplace=True),
-#             nn.Conv2d(64, 64, 3, 1, 1),
-#             nn.ReLU(inplace=True),
-#         )
-#
-#     def forward(self, x):
-#         out = self.conv(x)
-#         return out
-
-
 def VGG16_path4():
     conv = nn.Sequential(
             nn.Conv2d(3, 64, 3, 1, 1),
@@ -448,10 +368,6 @@ class GAN(object):
                     x = x.cuda()
 
                 self.D_optimizer.zero_grad()
-                # path4 = VGG16().path4(x)
-                # path3 = VGG16().path3(x)
-                # path2 = VGG16().path2(x)
-                # path1 = VGG16().path1(x)
                 path4 = Path4(x)
                 path3 = Path3(x)
                 path2 = Path2(x)
@@ -488,10 +404,7 @@ class GAN(object):
                         fixed_img_v = fixed_img_v.cuda()
 
                 self.D_optimizer.zero_grad()
-                # path41 = VGG16().path4(x)
-                # path31 = VGG16().path3(x)
-                # path21 = VGG16().path2(x)
-                # path11 = VGG16().path1(x)
+                
                 path41 = Path4(x)
                 path31 = Path3(x)
                 path21 = Path2(x)
@@ -500,10 +413,7 @@ class GAN(object):
                 D_fake_1_loss = self.MSELoss(D_fake_1, self.y_fake)
 
                 G = self.G(x)
-                # path42 = VGG16().path4(G)
-                # path32 = VGG16().path3(G)
-                # path22 = VGG16().path2(G)
-                # path12 = VGG16().path1(G)
+               
                 path42 = Path4(G)
                 path32 = Path3(G)
                 path22 = Path2(G)
@@ -518,10 +428,7 @@ class GAN(object):
 
                 self.G_optimizer.zero_grad()
                 G_ = self.G(x)
-                # path43 = VGG16().path4(G_)
-                # path33 = VGG16().path3(G_)
-                # path23 = VGG16().path2(G_)
-                # path13 = VGG16().path1(G_)
+                
                 path43 = Path4(G_)
                 path33 = Path3(G_)
                 path23 = Path2(G_)
