@@ -1,7 +1,7 @@
 import os
 
-origin_dir = "D:/模式识别课程/GAN/CACD2000/"
-des_dir = "D:/模式识别课程/GAN/data/"
+origin_dir = "D:/GAN/CACD2000/"
+des_dir = "D:/GAN/data/"
 imgFiles = [file for file in os.listdir(origin_dir)]
 
 def encodeAge(n):
