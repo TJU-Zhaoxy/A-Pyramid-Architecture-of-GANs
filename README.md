@@ -13,4 +13,4 @@ CACD MORPH dataset
 # Usage
 git clone or download zip file of this repository
 
-execute main.py in command
+execute python main.py in command
